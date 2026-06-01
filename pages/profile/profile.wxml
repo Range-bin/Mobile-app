@@ -1,0 +1,91 @@
+<view class="container">
+  <view class="profile-header">
+    <view class="user-info" bindtap="getUserProfile">
+      <image 
+        class="avatar" 
+        src="{{userInfo ? userInfo.avatarUrl : '/images/default-avatar.png'}}" 
+        mode="aspectFill"
+      ></image>
+      <view class="user-detail">
+        <text class="nickname">{{userInfo ? userInfo.nickName : '点击登录'}}</text>
+        <text class="user-desc">{{userInfo ? '欢迎回来' : '登录后可同步数据'}}</text>
+      </view>
+      <image class="arrow-icon" src="/images/arrow-right.png" mode="aspectFit"></image>
+    </view>
+    
+    <view class="stats-bar">
+      <view class="stat-item">
+        <text class="stat-number">{{stats.favorites}}</text>
+        <text class="stat-label">收藏</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-number">12</text>
+        <text class="stat-label">菜谱</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-number">4</text>
+        <text class="stat-label">分类</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="menu-section">
+    <view class="section-title">常用功能</view>
+    <view class="menu-list">
+      <view 
+        class="menu-item"
+        wx:for="{{menuList}}"
+        wx:key="title"
+        bindtap="onMenuTap"
+        data-item="{{item}}"
+      >
+        <view class="menu-icon-wrapper">
+          <text class="menu-icon">{{item.icon}}</text>
+        </view>
+        <view class="menu-content">
+          <text class="menu-title">{{item.title}}</text>
+          <text class="menu-desc">{{item.desc}}</text>
+        </view>
+        <image class="menu-arrow" src="/images/arrow-right.png" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="about-section">
+    <view class="section-title">关于应用</view>
+    <view class="about-list">
+      <view 
+        class="about-item"
+        wx:for="{{aboutList}}"
+        wx:key="title"
+        bindtap="onAboutTap"
+        data-index="{{index}}"
+      >
+        <view class="about-icon-wrapper">
+          <text class="about-icon">{{item.icon}}</text>
+        </view>
+        <view class="about-content">
+          <text class="about-title">{{item.title}}</text>
+          <text class="about-desc">{{item.desc}}</text>
+        </view>
+        <image class="about-arrow" src="/images/arrow-right.png" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="action-section">
+    <button class="action-btn cache-btn" bindtap="clearCache">
+      <text class="btn-text">🗑️ 清除缓存</text>
+    </button>
+    <button class="action-btn share-btn" open-type="share">
+      <text class="btn-text">📤 分享给好友</text>
+    </button>
+  </view>
+
+  <view class="footer">
+    <text class="footer-text">智能菜谱助手 v1.0.0</text>
+    <text class="footer-copyright">© 2024 All Rights Reserved</text>
+  </view>
+</view>

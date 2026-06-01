@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="header-section" wx:if="{{!isEmpty}}">
+    <view class="header-info">
+      <text class="favorites-count">共 {{favorites.length}} 道收藏</text>
+    </view>
+    <view class="clear-btn" bindtap="clearAllFavorites">
+      <text class="clear-text">清空全部</text>
+    </view>
+  </view>
+
+  <view class="favorites-list" wx:if="{{!isEmpty}}">
+    <view 
+      class="favorite-card"
+      wx:for="{{favorites}}"
+      wx:key="id"
+    >
+      <view class="card-content" bindtap="goToDetail" data-id="{{item.id}}">
+        <image class="recipe-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="recipe-info">
+          <text class="recipe-title">{{item.title}}</text>
+          <view class="recipe-meta">
+            <text class="meta-tag category">{{item.category}}</text>
+            <text class="meta-tag difficulty">{{item.difficulty}}</text>
+            <text class="meta-time">⏱ {{item.time}}</text>
+          </view>
+          <text class="recipe-desc text-ellipsis">{{item.description}}</text>
+        </view>
+      </view>
+      
+      <view class="card-actions">
+        <view class="action-btn delete-btn" bindtap="removeFavorite" data-id="{{item.id}}">
+          <text class="btn-text">删除</text>
+        </view>
+        <view class="action-btn view-btn" bindtap="goToDetail" data-id="{{item.id}}">
+          <text class="btn-text">查看详情</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{isEmpty}}">
+    <image class="empty-icon" src="/images/empty-favorite.png" mode="aspectFit"></image>
+    <text class="empty-title">还没有收藏任何菜谱</text>
+    <text class="empty-desc">去发现页浏览更多美味菜谱吧~</text>
+    <button class="go-btn" bindtap="goToAdd">去发现美食</button>
+  </view>
+</view>
