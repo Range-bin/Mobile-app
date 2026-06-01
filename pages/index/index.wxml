@@ -1,0 +1,79 @@
+<view class="container">
+  <view class="search-bar">
+    <view class="search-input-wrapper">
+      <image class="search-icon" src="/images/search.png" mode="aspectFit"></image>
+      <input 
+        class="search-input" 
+        placeholder="搜索菜谱、食材..." 
+        value="{{searchKeyword}}" 
+        bindinput="onSearchInput"
+        bindconfirm="onSearch"
+        confirm-type="search"
+      />
+    </view>
+  </view>
+
+  <view class="recommend-section">
+    <view class="section-header">
+      <text class="section-title">今日推荐</text>
+      <text class="section-subtitle">为你精选</text>
+    </view>
+    
+    <view class="recommend-card" wx:if="{{recommendRecipe}}" bindtap="goToDetail" data-id="{{recommendRecipe.id}}">
+      <image class="recommend-image" src="{{recommendRecipe.image}}" mode="aspectFill"></image>
+      <view class="recommend-info">
+        <text class="recommend-title">{{recommendRecipe.title}}</text>
+        <text class="recommend-desc">{{recommendRecipe.description}}</text>
+        <view class="recommend-meta">
+          <text class="meta-item">⏱ {{recommendRecipe.time}}</text>
+          <text class="meta-item">📊 {{recommendRecipe.difficulty}}</text>
+          <text class="meta-item">❤️ {{recommendRecipe.likes}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="categories-section">
+    <view class="section-header">
+      <text class="section-title">分类浏览</text>
+    </view>
+    <scroll-view class="categories-scroll" scroll-x enable-flex>
+      <view 
+        class="category-item" 
+        wx:for="{{categories}}" 
+        wx:key="name"
+        bindtap="goToCategory"
+        data-category="{{item.name.split(' ')[1]}}"
+      >
+        <text class="category-name">{{item.name}}</text>
+        <text class="category-count">{{item.count}}道菜</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="hot-section">
+    <view class="section-header">
+      <text class="section-title">热门菜谱</text>
+      <text class="more-link" bindtap="goToCategory" data-category="">查看更多 ›</text>
+    </view>
+    
+    <scroll-view class="hot-scroll" scroll-x enable-flex>
+      <view 
+        class="hot-card" 
+        wx:for="{{hotRecipes}}" 
+        wx:key="id"
+        bindtap="goToDetail"
+        data-id="{{item.id}}"
+      >
+        <image class="hot-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="hot-info">
+          <text class="hot-title text-ellipsis">{{item.title}}</text>
+          <view class="hot-meta">
+            <text class="hot-time">⏱ {{item.time}}</text>
+            <text class="hot-likes">❤️ {{item.likes}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
