@@ -1,0 +1,123 @@
+<view class="container" wx:if="{{recipe}}">
+  <view class="recipe-header">
+    <image 
+      class="recipe-banner" 
+      src="{{recipe.image}}" 
+      mode="aspectFill"
+      bindtap="previewImage"
+      data-url="{{recipe.image}}"
+    ></image>
+    
+    <view class="header-overlay">
+      <view class="back-btn" bindtap="goBack">
+        <text class="back-text">‹ 返回</text>
+      </view>
+      
+      <view class="header-info">
+        <text class="recipe-title">{{recipe.title}}</text>
+        <view class="recipe-badges">
+          <text class="badge category-badge">{{recipe.category}}</text>
+          <text class="badge difficulty-badge">{{recipe.difficulty}}</text>
+        </view>
+      </view>
+
+      <view class="favorite-btn {{isFavorite ? 'favorited' : ''}}" bindtap="toggleFavorite">
+        <text class="favorite-icon">{{isFavorite ? '★' : '☆'}}</text>
+        <text class="favorite-text">{{isFavorite ? '已收藏' : '收藏'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="recipe-meta-bar">
+    <view class="meta-item">
+      <text class="meta-icon">⏱</text>
+      <text class="meta-label">制作时间</text>
+      <text class="meta-value">{{recipe.time}}</text>
+    </view>
+    <view class="meta-divider"></view>
+    <view class="meta-item">
+      <text class="meta-icon">❤️</text>
+      <text class="meta-label">点赞数</text>
+      <text class="meta-value">{{recipe.likes}}</text>
+    </view>
+    <view class="meta-divider"></view>
+    <view class="meta-item">
+      <text class="meta-icon">📝</text>
+      <text class="meta-label">步骤数</text>
+      <text class="meta-value">{{recipe.steps.length}}步</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">📖 菜谱简介</text>
+    </view>
+    <text class="description">{{recipe.description}}</text>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">🥘 食材清单</text>
+      <view class="action-btn" bindtap="copyIngredients">
+        <text class="action-text">复制清单</text>
+      </view>
+    </view>
+    
+    <view class="ingredients-list">
+      <view 
+        class="ingredient-item"
+        wx:for="{{recipe.ingredients}}"
+        wx:key="*this"
+        wx:if="{{showAllIngredients || index < 5}}"
+      >
+        <text class="ingredient-bullet">•</text>
+        <text class="ingredient-name">{{item}}</text>
+      </view>
+      
+      <view class="toggle-btn" wx:if="{{recipe.ingredients.length > 5 && !showAllIngredients}}" bindtap="toggleIngredients">
+        <text class="toggle-text">展开全部 (共{{recipe.ingredients.length}}种)</text>
+        <text class="toggle-arrow">▼</text>
+      </view>
+      
+      <view class="toggle-btn" wx:if="{{showAllIngredients}}" bindtap="toggleIngredients">
+        <text class="toggle-text">收起</text>
+        <text class="toggle-arrow">▲</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">👨‍🍳 制作步骤</text>
+      <text class="step-count">共{{recipe.steps.length}}步</text>
+    </view>
+    
+    <view class="steps-list">
+      <view 
+        class="step-item"
+        wx:for="{{recipe.steps}}"
+        wx:key="index"
+      >
+        <view class="step-number-wrapper">
+          <view class="step-number">{{index + 1}}</view>
+          <view class="step-line" wx:if="{{index < recipe.steps.length - 1}}"></view>
+        </view>
+        
+        <view class="step-content">
+          <text class="step-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-actions">
+    <button class="action-button share-btn" open-type="share">
+      <text class="btn-icon">📤</text>
+      <text class="btn-text">分享给好友</text>
+    </button>
+    <button class="action-button favorite-bottom-btn {{isFavorite ? 'favorited' : ''}}" bindtap="toggleFavorite">
+      <text class="btn-icon">{{isFavorite ? '★' : '☆'}}</text>
+      <text class="btn-text">{{isFavorite ? '已收藏' : '加入收藏'}}</text>
+    </button>
+  </view>
+</view>
